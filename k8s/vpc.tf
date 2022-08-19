@@ -14,6 +14,7 @@ resource "aws_subnet" "k8s-public-subnets" {
   count = length(var.k8s_public_subnets_cidr)
   availability_zone = element(var.aws_az, count.index % length(var.aws_az))
   cidr_block = element(var.k8s_public_subnets_cidr, count.index)
+  map_public_ip_on_launch = true
 
   tags = {
     "Name" = "k8s-pub-${substr(element(var.aws_az, count.index), -1, -1)}"
